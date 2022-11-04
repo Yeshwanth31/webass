@@ -12,12 +12,15 @@
 		<li><a href="Register.html">Register</a></li>
 		<li><a href="Note.html">Notes</a></li>
 	</nav>
-    <form action="#final">
-  <p><label for="Notes">You can Write Your Notes Here:</label></p>
-  <textarea id="textnote" name="notes" rows="40" cols="175"></textarea>
-  <br>
-  <br>
-  <button type="notebutton" name="notebutton" onclick="alert('Note added')">Add Note</button>
-</form>
+    <form id="note-form" action="#final">
+      <p><label for="Notes">You can Write Your Notes Here:</label></p>
+      <textarea id="textnote" name="notes" rows="40" cols="175" id="note"></textarea>
+      <br>
+      <br>
+      <button type="notebutton" id="submit" name="notebutton" onclick="alert('Note added')">Add Note</button>
+    </form>
+
+    <script src="assign.js"></script>
+
   </body>
 </html>
