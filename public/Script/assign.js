@@ -1,5 +1,4 @@
-const user_btn = document.getElementById("1");
-user_btn.addEventListener('click',getUsers);
+
 
 
 class assign5
@@ -102,11 +101,21 @@ function page(b){
 }
 
 
+const user_btn = document.getElementById("1");
+if(user_btn) user_btn.addEventListener('click',getUsers);
+
+
+const note_btn = document.getElementById("2");
+if(note_btn) note_btn.addEventListener('click',getNote);
+
 function getUsers(){
     fetch("http://localhost:3000/user/")
-    .then((res)=> res.json())
+    .then((res) => res.json())
     .then((data) => console.log(data))
     .catch((err)=> console.log(err))
+
+    
+    .catch((err)=> console.log(err));
 }
 
 function getNote(){
