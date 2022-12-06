@@ -38,7 +38,7 @@ button{
   margin-left: 650px;
   border-radius : 5px;
 }
-body {
+body {  
   background : url('Pic.jpg') no-repeat;
   background-size: cover;
 }
