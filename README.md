@@ -1,6 +1,6 @@
 # Notes Application  
 
-![my uml](public\Images\flowers.jpg)
+![my uml](/public/Images/flowers.jpg)
 
 HTML is the markup language that we use to structure and give meaning to our web content, for example defining paragraphs, headings, and data tables, or embedding images and videos in the page.
 
