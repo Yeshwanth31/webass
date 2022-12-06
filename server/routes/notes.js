@@ -12,14 +12,6 @@ router
     }
   })
 
-  .post('/login', async (req, res) => {
-    try {
-      let note = await note.login(req.body);
-      res.send({...user, password: undefined})
-    } catch(err) {
-      res.status(401).send({message: err.message});
-    }
-  })
 
   .post('/register', async (req, res) => {
     try {

@@ -31,15 +31,7 @@ async function register(note) {
   return await login(note);
 }
 
-// Read User -- login user
-async function login(note) {
-  let cnote = await getNote(note);
-  
-  if(!cnote[0]) throw Error("Note not found");
-  if(cnote[0].password !== note.password) throw Error("Password incorrect");
 
-  return cnote[0];
-}
 
 // Update User function
 async function editnote(note) {
@@ -79,7 +71,7 @@ async function getNote(note) {
   return await con.query(sql);  
 }
 
-module.exports = { getAllnote, login, register, editnote, deletenote};
+module.exports = { getAllnote, register, editnote, deletenote};
 
 
 
