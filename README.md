@@ -1,5 +1,5 @@
 # Notes Application  
-![alt txt!](public\Images\ER.png )
+![alt txt](public\Images\ER.png )
 
 HTML is the markup language that we use to structure and give meaning to our web content, for example defining paragraphs, headings, and data tables, or embedding images and videos in the page.
 
