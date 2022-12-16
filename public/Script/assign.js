@@ -105,7 +105,7 @@ class User {
     e.preventDefault();
   
     let userName = document.getElementById("username").value;  
-    let emailId = document.getElementById("emailId").value;
+    let emailId = document.getElementById("username").value;
     let password = document.getElementById("pwd").value;
     let user = new User(userName, emailId, password);
   
