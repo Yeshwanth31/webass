@@ -4,9 +4,10 @@ const con = require("./db_connect");
 async function createTable() {
   let sql=`CREATE TABLE IF NOT EXISTS notes (
     userID INT NOT NULL,
-    noteID INT NOT NULL,
+    noteID INT NOT NULL AUTO_INCREMENT,
+    emailId VARCHAR(255) NOT NULL,
     noteContent VARCHAR(255) NOT NULL,
-    CONSTRAINT userPK PRIMARY KEY(userID)
+    CONSTRAINT userPK PRIMARY KEY(noteID)
   ); `
   await con.query(sql);
 }
@@ -14,21 +15,21 @@ createTable();
 
 // grabbing all users in database
 async function getAllnote() {
-  const sql = `SELECT * FROM notes;`;
+  const sql = `SELECT * FROM notes;`
   let notes = await con.query(sql);
   console.log(notes)
 }
 
 // Create  User - Registering
 async function register(note) {
+    // console.log(note);
   let cnote = await getNote(note);
   if(cnote.length > 0) throw Error("Note already in use");
-
-  const sql = `INSERT INTO notes (userID, noteID, noteContent)
-    VALUES ("${note.userID}", "${note.noteID}", "${note.noteContent}");
+console.log(cnote);
+  const sql = `INSERT INTO notes (userID, emailId, noteContent)
+    VALUES (${note.userID}, "${note.emailId}", "${note.noteContent}");
   `
   await con.query(sql);
-  return await login(note);
 }
 
 
@@ -37,7 +38,7 @@ async function register(note) {
 async function editnote(note) {
   let sql = `UPDATE notes 
     SET noteContent = "${note.noteContent}"
-    WHERE noteId = ${note.noteId}
+    WHERE emailId = "${note.emailId}"
   `;
 
   await con.query(sql);
@@ -48,8 +49,8 @@ async function editnote(note) {
 // Delete User function
 async function deletenote(note) {
   let sql = `DELETE FROM notes
-    WHERE noteId = ${note.noterId}
-  `
+    WHERE emailId = "${note.emailId}"
+  `;
   await con.query(sql);
 }
 
@@ -57,38 +58,13 @@ async function deletenote(note) {
 async function getNote(note) {
   let sql;
 
-  if(note.noteId) {
+  console.log(note.emailId);
     sql = `
       SELECT * FROM notes
-       WHERE noteId = ${note.noteId}
-    `
-  } else {
-    sql = `
-    SELECT * FROM notes 
-      WHERE noteContent = "${note.noteContent}"
-  `;
-  }
+       WHERE emailId = "${note.emailId}"
+    `;
+  console.log(sql);
   return await con.query(sql);  
 }
 
-module.exports = { getAllnote, register, editnote, deletenote};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = { getAllnote, register, editnote, deletenote};

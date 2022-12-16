@@ -1,22 +1,25 @@
-/*let nav = document.querySelector('nav');
+let nav = document.querySelector('nav');
 
 if(getCurrentUser()) {
   nav.innerHTML = `
     <ul>
-      <li><a href="bmi.html">Calculate</a></li>
-      <li><a href="profile.html">Profile</a></li>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="Login.html">Login</a></li>
+      <li><a href="Register.html">Register</a></li>
+
+      
       <li><a id="logout-btn">Logout</a></li>
     </ul>
   `
 } else {
   nav.innerHTML = `
     <ul>
-      <li><a href="bmi.html">Calculate</a></li>
-      <li><a href="login.html">Login</a></li>
-      <li><a href="register.html">Sign Up</a></li>
+    <li><a href="homepage.html">Home</a></li>
+    <li><a href="Login.html">Login</a></li>
+    <li><a href="Register.html">Register</a></li>
     </ul>
   `
-}*/
+}
 
 // Fetch method implementation:
 async function fetchData(route = '', data = {}, methodType) {
@@ -57,14 +60,14 @@ function getCurrentUser() {
 // logout function for current user
 function removeCurrentUser() {
   localStorage.removeItem('user');
-  window.location.href = "login.html";
+  window.location.href = "Login.html";
 }
 
 class User {
-    constructor(userName, password, fullName) {
+    constructor(userName, emailId, password) {  
       this.userName = userName;
+      this.emailId = emailId;
       this.password = password;
-      this.fullName = fullName;
     }
   
     getUsername() {
@@ -79,11 +82,11 @@ class User {
   function login(e) {
     e.preventDefault();
   
-    let userName = document.getElementById("username").value;
+    let emailId = document.getElementById("emailId").value; //  change username to email
     let password = document.getElementById("pwd").value;
-    let user = new User(userName, password);
+    let user = new User(emailId, password);
   
-    fetchData("/users/login", user, "POST")
+    fetchData("/user/login", user, "POST")
     .then((data) => {
       setCurrentUser(data);
       window.location.href = "Note.html";
@@ -101,15 +104,17 @@ class User {
   function register(e) {
     e.preventDefault();
   
-    let userName = document.getElementById("username").value;
-    let fname = document.getElementById("fname").value;
-    let lname = document.getElementById("lname").value;
-    let password = document.getElementById("pswd").value;
-    let user = new User(userName, password,fname,lname);
+    let userName = document.getElementById("username").value;  
+    let emailId = document.getElementById("emailId").value;
+    let password = document.getElementById("pwd").value;
+    let user = new User(userName, emailId, password);
   
-    fetchData("/users/register", user, "POST")
+    fetchData("/user/register", user, "POST")
     .then((data) => {
       setCurrentUser(data);
+
+      alert("registration success")
+      
       window.location.href = "Note.html";
     })
     .catch((err) =>{
@@ -117,6 +122,50 @@ class User {
       p.innerHTML = err.message;
     })
   }
+
+  //Note Functionality
+  class Note{
+    constructor(emailId,noteContent) {
+      this.emailId=emailId;
+      this.noteContent=noteContent;
+    }
+    getNotes(){
+      return this.noteContent;
+    }
+  }
+  let user=getCurrentUser();
+  let note=document.getElementById("noteForm");
+  if(note) note.addEventListener('submit',notePageFunction)
+  function notePageFunction(e){
+    e.preventDefault();
+    let noted=document.getElementById('note').value;
+    obj=getCurrentUser();
+    emailId=obj.emailId;
+    const note=new Note(noted,emailId);
+    fetchData("/notes/register", note, "POST")
+    .then((data) => {
+      alert("Note Added")
+      window.location.href="Note.html"
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    document.getElementById("noteForm").requestFullscreen();
+  }
+  if(user&&note) getallnotes();
+  function getallnotes(){
+    let notedata=document.getElementById('note');
+    fetchData("/notes/getNote",user,"POST")
+    .then((data) => {
+      console.log(data);
+      for(let i=0;i<data.length;i++) {
+        notedata.value+=data[i].noteContent;
+      }
+    })
+  }
+
+
+
 /*
 class assign5
 {

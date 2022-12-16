@@ -1,11 +1,11 @@
 const express = require('express');
-const note = require('../models/notes');
+const Note = require('../models/notes');
 const router = express.Router();
 
 router
   .get('/', async (req, res) => {
     try {
-      const notes = await note.getAllnote();
+      const notes = await Note.getAllnote();
       res.send(notes);
     } catch(err) {
       res.status(401).send({message: err.message});
@@ -15,7 +15,8 @@ router
 
   .post('/register', async (req, res) => {
     try {
-      let note = await note.register(req.body);
+      console.log(req.body);
+      let note = await Note.register(req.body);
       res.send({...note, password: undefined})
     } catch(err) {
       res.status(401).send({message: err.message});
@@ -24,7 +25,7 @@ router
 
   .put('/edit', async (req, res) => {
     try {
-      let note = await note.editnote(req.body);
+      let note = await Note.editnote(req.body);
       res.send({...note, password: undefined});
     } catch(err) {
       res.status(401).send({message: err.message})
@@ -33,7 +34,7 @@ router
 
   .delete('/delete', async (req, res) => {
     try {
-      User.deletenote(req.body);
+      Note.deletenote(req.body);
       res.send({success: "We'll Miss You... :("})
     } catch(err) {
       res.status(401).send({message: err.message})
@@ -43,4 +44,4 @@ router
 
 
   
-module.exports = router;
+module.exports = router;

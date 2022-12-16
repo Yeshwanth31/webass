@@ -15,8 +15,10 @@ app.use(function(req,res,next) {
   next();
 });
 
+app.use(express.json());
+
 app.use("/user",userRoutes);
-// app.use("/notes",noteRouter);
+app.use("/notes",noteRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));

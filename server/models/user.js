@@ -5,6 +5,7 @@ async function createTable() {
   let sql=`CREATE TABLE IF NOT EXISTS users (
     userID INT NOT NULL AUTO_INCREMENT,
     userName VARCHAR(255),
+    emailId VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     CONSTRAINT userPK PRIMARY KEY(userID)
   ); `
@@ -24,7 +25,7 @@ async function register(user) {
   let cUser = await getUser(user);
   if(cUser.length > 0) throw Error("Username already in use");
 
-  const sql = `INSERT INTO users (userName, password)
+  const sql = `INSERT INTO users (userName, emailId, password)
     VALUES ("${user.userName}", "${user.emailId}", "${user.password}");
   `
   await con.query(sql);
@@ -45,7 +46,7 @@ async function login(user) { // {userName: "sda", password: "gsdhjsga"}
 async function editUser(user) {
   let sql = `UPDATE users 
     SET userName = "${user.userName}"
-    WHERE userID = ${user.userID}
+    WHERE emailId = "${user.emailId}"
   `;
 
   await con.query(sql);
@@ -56,14 +57,14 @@ async function editUser(user) {
 // Delete User function
 async function deleteUser(user) {
   let sql = `DELETE FROM users
-    WHERE userID = ${user.userID}
-  `
+    WHERE emailId = "${user.emailId}"
+  `;
   await con.query(sql);
 }
 
 // Useful Functions
 async function getUser(user) {
-  // console.log(emailId);
+  console.log(user.emailId);
 
   let sql = `
     SELECT * FROM users WHERE emailId = "${user.emailId}"`;
@@ -81,4 +82,4 @@ let cathy = {
 login(cathy);
 */
 
-module.exports = { getAllUsers, login, register, editUser, deleteUser};
+module.exports = { getAllUsers, login, register, editUser, deleteUser};
