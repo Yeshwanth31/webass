@@ -32,7 +32,19 @@ console.log(cnote);
   await con.query(sql);
 }
 
-
+async function getNote(note){
+  let sql;
+  if (note.userID){
+      sql=`SELECT * FROM notes
+      WHERE userID = ${note.userID}`;
+  } else {
+      sql = `
+      SELECT * FROM notes 
+        WHERE noteID = "${note.noteID}"
+    `;
+    }
+  return await con.query(sql);
+}
 
 // Update User function
 async function editnote(note) {
@@ -67,4 +79,4 @@ async function getNote(note) {
   return await con.query(sql);  
 }
 
-module.exports = { getAllnote, register, editnote, deletenote};
+module.exports = { getAllnote, register, editnote, deletenote, getNote};

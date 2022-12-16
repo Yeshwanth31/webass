@@ -6,9 +6,7 @@ if(getCurrentUser()) {
       <li><a href="homepage.html">Home</a></li>
       <li><a href="Login.html">Login</a></li>
       <li><a href="Register.html">Register</a></li>
-
-      
-      <li><a id="logout-btn">Logout</a></li>
+ <li><a id="logout-btn">Logout</a></li>
     </ul>
   `
 } else {
@@ -82,7 +80,7 @@ class User {
   function login(e) {
     e.preventDefault();
   
-    let emailId = document.getElementById("emailId").value; //  change username to email
+    let emailId = document.getElementById("username").value; //  change username to email
     let password = document.getElementById("pwd").value;
     let user = new User(emailId, password);
   
@@ -123,6 +121,8 @@ class User {
     })
   }
 
+
+
   //Note Functionality
   class Note{
     constructor(emailId,noteContent) {
@@ -134,7 +134,7 @@ class User {
     }
   }
   let user=getCurrentUser();
-  let note=document.getElementById("noteForm");
+  let note=document.getElementById("note-form");
   if(note) note.addEventListener('submit',notePageFunction)
   function notePageFunction(e){
     e.preventDefault();
@@ -150,7 +150,7 @@ class User {
     .catch((err) => {
       console.log(err);
     })
-    document.getElementById("noteForm").requestFullscreen();
+    document.getElementById("note-form");
   }
   if(user&&note) getallnotes();
   function getallnotes(){

@@ -41,7 +41,15 @@ router
     }
   })
 
-
+  .post('/getNote', async (req, res) => {
+    try {
+      console.log(req.body)
+      let note = await Note.getNote(req.body);
+      res.send(note);
+    } catch(err) {
+      res.status(401).send({message: err.message});
+    }
+  })
 
   
 module.exports = router;
