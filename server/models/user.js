@@ -38,7 +38,7 @@ async function login(user) { // {userName: "sda", password: "gsdhjsga"}
   
   if(!cUser[0]) throw Error("Username not found");
   if(cUser[0].password !== user.password) throw Error("Password incorrect");
-
+  console.log(cUser);
   return cUser[0];
 }
 
@@ -65,6 +65,7 @@ async function deleteUser(user) {
 // Useful Functions
 async function getUser(user) {
   console.log(user.emailId);
+  console.log("in getUser ");
 
   let sql = `
     SELECT * FROM users WHERE emailId = "${user.emailId}"`;

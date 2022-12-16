@@ -82,7 +82,8 @@ class User {
   
     let emailId = document.getElementById("username").value; //  change username to email
     let password = document.getElementById("pwd").value;
-    let user = new User(emailId, password);
+    let user = new User(null,emailId, password);
+    console.log(user);
   
     fetchData("/user/login", user, "POST")
     .then((data) => {
