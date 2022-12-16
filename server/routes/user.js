@@ -12,8 +12,10 @@ router
     }
   })
 
-  .post('/login', async (req, res) => {
+ router .post('/login', async (req, res) => {
     try {
+      console.log(req.body);
+      console.log("hi");
       let user = await User.login(req.body);
       res.send({...user, password: undefined})
     } catch(err) {
@@ -21,9 +23,10 @@ router
     }
   })
 
-  .post('/register', async (req, res) => {
+  router.post('/register', async (req, res) => {
     try {
-      let user = await User.register(req.body);
+      console.log(req);
+      console.log("hi");      let user = await User.register(req.body);
       res.send({...user, password: undefined})
     } catch(err) {
       res.status(401).send({message: err.message});
@@ -51,4 +54,4 @@ router
 
 
   
-module.exports = router;
+module.exports = router;
